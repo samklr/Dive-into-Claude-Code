@@ -79,6 +79,10 @@ Claude Code answers **four design questions** that every production coding agent
 
 The system decomposes into **7 components** (User → Interfaces → Agent Loop → Permission System → Tools → State & Persistence → Execution Environment) across **5 layers** expanding into 21 subsystems.
 
+<p align="center">
+  <img src="./assets/layered_architecture.png" width="85%" alt="5-layer subsystem decomposition">
+</p>
+
 > [!NOTE]
 > For the full architectural deep dive -- 7 safety layers, 9-step turn pipeline, 5-layer compaction, and more -- see **[docs/architecture.md](./docs/architecture.md)**.
 
