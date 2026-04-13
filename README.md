@@ -1,4 +1,4 @@
-# Dive into Claude Code: The Design Space of Today's AI Agent System
+# Dive into Claude Code: The Design Space of Today's and Future AI Agent Systems
 
 <p align="center">
   <img src="./assets/main_structure.png" width="85%" alt="High-level system structure of Claude Code">
@@ -377,7 +377,7 @@ Tutorials and hands-on learning paths.
 
 ```bibtex
 @article{diveclaudecode2026,
-  title={Dive into Claude Code: The Design Space of Today's AI Agent System},
+  title={Dive into Claude Code: The Design Space of Today's and Future AI Agent Systems},
   author={XXX},
   year={2026},
   url={https://arxiv.org/abs/XXXX.XXXXX}
