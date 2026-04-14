@@ -11,7 +11,7 @@
 | **Where does reasoning live?** | Model reasons; harness enforces. ~1.6% AI decision logic, 98.4% infrastructure. | LangGraph: explicit state graphs. Devin: multi-step planners. |
 | **How many execution engines?** | One `queryLoop` for all interfaces (CLI, SDK, IDE). | Mode-specific engines per surface. |
 | **What is the default safety posture?** | Deny-first: deny > ask > allow. Strictest rule wins. | Container isolation (SWE-Agent), git rollback (Aider). |
-| **What is the binding resource constraint?** | ~200K-token context window. 5 compaction strategies run before every model call. | Compute budget. |
+| **What is the binding resource constraint?** | ~200K-token context window. 5 compaction strategies run before every model call. | Compute budget, explicit scratchpad. |
 
 ## High-Level System Structure (7 Components)
 
