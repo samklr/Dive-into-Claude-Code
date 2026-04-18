@@ -1,0 +1,13 @@
+name: Refresh Star History
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # every hour at minute 0
+  workflow_dispatch:
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge camo image cache
+        run: npx --yes camo-purge --repository=VILA-Lab/Dive-into-Claude-Code
