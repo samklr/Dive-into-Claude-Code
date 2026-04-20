@@ -410,6 +410,8 @@ Recently launched (2025–2026) open-source AI agent projects outside the Claude
 | [**666ghj/MiroFish**](https://github.com/666ghj/MiroFish) | Mar 2026 | Multi-agent swarm-intelligence simulation engine. |
 | [**MemPalace/mempalace**](https://github.com/MemPalace/mempalace) | 2026 | Local-first memory system for AI agents. |
 | [**multica-ai/multica**](https://github.com/multica-ai/multica) | 2026 | Managed-agents platform for task assignment and skill compounding. |
+| [**badlogic/pi-mono**](https://github.com/badlogic/pi-mono) | Aug 2025 | Monorepo coding-agent toolkit — unified LLM API (OpenAI/Anthropic/Google), TUI + web UI, per-cwd session persistence. |
+| [**coleam00/Archon**](https://github.com/coleam00/Archon) | Feb 2025 | Deterministic harness — YAML-defined workflows with execution audit trail; contrast to model-driven agent loops. |
 
 <p align="right"><a href="#dive-into-claude-code-the-design-space-of-todays-ai-agent-system">↑ Back to top</a></p>
 
