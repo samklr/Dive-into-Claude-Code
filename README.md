@@ -537,8 +537,6 @@ A broader map of the agent design space surrounding Claude Code. The [Cross-Syst
 }
 ```
 
-</details>
-
 
 ## License
 
