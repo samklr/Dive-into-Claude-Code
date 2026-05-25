@@ -6,6 +6,14 @@
 
 ---
 
+## Design Space 新进展资料记录
+
+| 资源 | 描述 |
+|:---|:---|
+| [Agent Systems Design Space 新进展资料记录](./agent-design-space-source-notes_zh.md) | 记录与 agent-system design space 高度相关的高信号资料；每条来源保留发布年月，方便后续持续追加。覆盖 OpenAI Codex、Anthropic/Claude、Google Antigravity、GitHub Copilot、LangChain、Cursor、AWS、Microsoft、标准/安全指导以及近期论文。重点是 agent operating layer、sandbox、context/memory、tool connectivity、人类控制面、trace/eval 改进循环。 |
+
+---
+
 ## 架构分析
 
 对 Claude Code 内部设计的深度剖析。

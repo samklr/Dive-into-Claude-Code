@@ -39,6 +39,7 @@
 
 **Beyond the Paper**
 
+- [🛰️ New Signals in the Agent Design Space](#new-signals-in-the-agent-design-space)
 - [🛠️ Build Your Own AI Agent: A Design Guide](#build-your-own-ai-agent-a-design-guide)
 - [⚖️ Cross-System Comparison: Claude Code vs OpenClaw vs Hermes-Agent](#cross-system-comparison-claude-code-vs-openclaw-vs-hermes-agent)
 - [🌐 Community Projects & Research](#community-projects--research)
@@ -274,6 +275,28 @@ Three channels: append-only JSONL transcripts, global prompt history, subagent s
 **Chain patching:** Compact boundaries record `headUuid`/`anchorUuid`/`tailUuid`. The session loader patches the message chain at read time. Nothing is destructively edited on disk.
 
 **Checkpoints:** File-history checkpoints for `--rewind-files`, stored at `~/.claude/file-history/<sessionId>/`.
+
+<p align="right"><a href="#dive-into-claude-code-the-design-space-of-todays-ai-agent-system">↑ Back to top</a></p>
+
+</details>
+
+---
+
+<details>
+<summary><h2>New Signals in the Agent Design Space</h2></summary>
+
+New agent-system developments reinforce the same lesson surfaced by Claude Code: agent capability is not a model property alone. It emerges from the runtime, context layer, execution boundary, tool supply chain, human control surface, and evaluation loop around the model.
+
+| Design Implication | What it means for agent builders | Representative signals |
+|:---|:---|:---|
+| **Runtime and control plane are first-class design concerns** | Durable execution, checkpoints, sandboxes, agent inventory, policy, and observability should be designed as user-visible system surfaces, not hidden deployment plumbing. | [Cursor cloud agents](https://cursor.com/blog/cloud-agent-lessons), [Google Managed Agents](https://blog.google/innovation-and-ai/technology/developers-tools/managed-agents-gemini-api/), [Microsoft Agent 365](https://www.microsoft.com/en-us/security/blog/2026/05/01/microsoft-agent-365-now-generally-available-expands-capabilities-and-integrations/) |
+| **Context is managed infrastructure** | Prompts, files, skills, IDE indexes, workspace state, memory namespaces, and interpreter state need lifecycle, provenance, review, and rollback. | [LangChain Context Hub](https://www.langchain.com/blog/introducing-context-hub), [AWS AgentCore](https://aws.amazon.com/blogs/machine-learning/break-the-context-window-barrier-with-amazon-bedrock-agentcore/), [Anthropic managed-agent memory](https://platform.claude.com/docs/en/managed-agents/memory) |
+| **Execution boundary is the safety boundary** | Permissions, network reachability, filesystem access, credential custody, tenant isolation, and OS sandboxing are core architecture, not late-stage hardening. | [Codex Windows sandbox](https://openai.com/index/building-codex-windows-sandbox/), [Running Codex safely](https://openai.com/index/running-codex-safely/), [Anthropic self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) |
+| **Tools and skills are a supply chain** | MCP servers, skills, plugins, and agent-to-agent protocols need registries, allowlists, identity, semantic review, versioning, and revocation. | [NSA MCP security](https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf), [GitHub MCP allowlists](https://github.blog/changelog/2026-04-16-copilot-cli-supports-custom-registry-based-mcp-allowlists/), [A2A milestone](https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year) |
+| **Humans become managers and verifiers** | Agent products should support goals, plans, approvals, interrupts, reviewable diffs, escalation, and constrained multi-agent write authority. | [Codex from anywhere](https://openai.com/index/work-with-codex-from-anywhere/), [Copilot cloud agent](https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent), [Cognition multi-agents](https://cognition.ai/blog/multi-agents-working) |
+| **Observability must close the improvement loop** | Traces should feed evaluation, failure clustering, policy enforcement, and prompt/tool repair rather than ending as passive logs. | [LangSmith Engine](https://www.langchain.com/blog/how-we-built-langsmith-engine-our-agent-for-improving-agents), [OpenAI agent improvement loop](https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop), [AWS AgentCore Evaluations](https://aws.amazon.com/blogs/machine-learning/build-reliable-ai-agents-with-amazon-bedrock-agentcore-evaluations/) |
+
+These signals do not replace Claude Code's design space; they make its boundaries clearer. The agent loop is the small part. The harness around it is where most capability, safety, and reliability decisions now live. For month-level source notes, see **[docs/agent-design-space-source-notes_zh.md](./docs/agent-design-space-source-notes_zh.md)**.
 
 <p align="right"><a href="#dive-into-claude-code-the-design-space-of-todays-ai-agent-system">↑ Back to top</a></p>
 

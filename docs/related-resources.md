@@ -6,6 +6,14 @@
 
 ---
 
+## Design-Space Source Notes
+
+| Resource | Description |
+|:---|:---|
+| [Agent Systems Design Space Source Notes](./agent-design-space-source-notes_zh.md) | Chinese-language notes on high-signal agent-system design sources and new developments, with year-month metadata kept per source for ongoing extension. Covers OpenAI Codex, Anthropic/Claude, Google Antigravity, GitHub Copilot, LangChain, Cursor, AWS, Microsoft, standards/security guidance, and recent papers. Focuses on the emerging agent operating layer, sandboxes, context/memory, tool connectivity, human control surfaces, and trace/eval improvement loops. |
+
+---
+
 ## Architecture Analysis
 
 Deep dives into Claude Code's internal design.

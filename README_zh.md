@@ -39,6 +39,7 @@
 
 **论文之外**
 
+- [🛰️ Agent 设计空间的新信号](#agent-设计空间的新信号)
 - [🛠️ 构建你自己的 AI 智能体：设计指南](#构建你自己的-ai-智能体设计指南)
 - [⚖️ 跨系统对比：Claude Code vs OpenClaw vs Hermes-Agent](#跨系统对比claude-code-vs-openclaw-vs-hermes-agent)
 - [🌐 社区项目与研究](#社区项目与研究)
@@ -274,6 +275,28 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 **链式修补：** 压缩边界记录 `headUuid`/`anchorUuid`/`tailUuid`。会话加载器在读取时修补消息链；磁盘上的数据不会被就地改写。
 
 **检查点：** `--rewind-files` 的文件历史检查点，存储在 `~/.claude/file-history/<sessionId>/`。
+
+<p align="right"><a href="#深入理解-claude-code">↑ 返回顶部</a></p>
+
+</details>
+
+---
+
+<details>
+<summary><h2>Agent 设计空间的新信号</h2></summary>
+
+这些 agent 系统的新进展进一步强化了 Claude Code 暴露出的同一个判断：agent 能力不只是模型属性，而是由模型周围的运行时、context 层、执行边界、工具供应链、人类控制面和评估闭环共同产生。
+
+| 设计启示 | 对 Agent 构建者意味着什么 | 代表信号 |
+|:---|:---|:---|
+| **运行时与控制面是一等设计关注点** | 持久执行、检查点、沙箱、agent inventory、策略面和可观测性应该作为用户可感知的系统界面来设计，而不是隐藏在部署管线里。 | [Cursor cloud agents](https://cursor.com/blog/cloud-agent-lessons)、[Google Managed Agents](https://blog.google/innovation-and-ai/technology/developers-tools/managed-agents-gemini-api/)、[Microsoft Agent 365](https://www.microsoft.com/en-us/security/blog/2026/05/01/microsoft-agent-365-now-generally-available-expands-capabilities-and-integrations/) |
+| **Context 是有生命周期的基础设施** | Prompt、文件、skills、IDE 索引、workspace state、memory namespace 和 interpreter state 都需要生命周期、来源、审查和回滚。 | [LangChain Context Hub](https://www.langchain.com/blog/introducing-context-hub)、[AWS AgentCore](https://aws.amazon.com/blogs/machine-learning/break-the-context-window-barrier-with-amazon-bedrock-agentcore/)、[Anthropic managed-agent memory](https://platform.claude.com/docs/en/managed-agents/memory) |
+| **执行边界就是安全边界** | 权限、网络可达性、文件系统访问、凭证托管、租户隔离和 OS sandboxing 是核心架构，而不是后期加固项。 | [Codex Windows sandbox](https://openai.com/index/building-codex-windows-sandbox/)、[Running Codex safely](https://openai.com/index/running-codex-safely/)、[Anthropic self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) |
+| **工具与 skills 构成供应链** | MCP servers、skills、plugins 和 agent-to-agent protocols 需要 registry、allowlist、identity、语义审查、版本管理和撤销机制。 | [NSA MCP security](https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf)、[GitHub MCP allowlists](https://github.blog/changelog/2026-04-16-copilot-cli-supports-custom-registry-based-mcp-allowlists/)、[A2A milestone](https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year) |
+| **人类角色转向管理者与验证者** | Agent 产品应该支持目标、计划、审批、中断、可审查 diff、升级路径，以及受约束的多 agent 写权限。 | [Codex from anywhere](https://openai.com/index/work-with-codex-from-anywhere/)、[Copilot cloud agent](https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent)、[Cognition multi-agents](https://cognition.ai/blog/multi-agents-working) |
+| **可观测性必须进入改进闭环** | Traces 不应止步于被动日志，而应进入 eval、failure clustering、policy enforcement 和 prompt/tool repair。 | [LangSmith Engine](https://www.langchain.com/blog/how-we-built-langsmith-engine-our-agent-for-improving-agents)、[OpenAI agent improvement loop](https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop)、[AWS AgentCore Evaluations](https://aws.amazon.com/blogs/machine-learning/build-reliable-ai-agents-with-amazon-bedrock-agentcore-evaluations/) |
+
+这些信号不是在替代 Claude Code 的 design space，而是在让它的边界更清晰：agent loop 是小的部分，周围的 harness 才是大多数能力、安全和可靠性决策发生的地方。按月份记录的资料见 **[docs/agent-design-space-source-notes_zh.md](./docs/agent-design-space-source-notes_zh.md)**。
 
 <p align="right"><a href="#深入理解-claude-code">↑ 返回顶部</a></p>
 
