@@ -369,9 +369,12 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [Harness Design for Long-Running Application Development](https://anthropic.com/engineering/harness-design-long-running-apps) | 自主全栈开发的 harness 架构；多智能体模式。 |
 | [Claude Code Auto Mode: A Safer Way to Skip Permissions](https://www.anthropic.com/engineering/claude-code-auto-mode) | ML 分类器批准自动化；93% 批准率发现的来源。 |
 | [Beyond Permission Prompts: Making Claude Code More Secure and Autonomous](https://www.anthropic.com/engineering/claude-code-sandboxing) | 基于沙箱的安全；权限提示减少 84%。 |
+| [How We Contain Claude Across Products](https://www.anthropic.com/engineering/how-we-contain-claude) | 跨 claude.ai、Claude Code 与 Cowork 的隔离防护（2026 年 5 月）；Claude Code 的人类在环沙箱、审批疲劳，以及如何控制爆炸半径。 |
 | [Measuring AI Agent Autonomy in Practice](https://anthropic.com/research/measuring-agent-autonomy) | 长期使用数据：随着用户熟练度提升，自动批准率从约 20% 上升到 40% 以上。 |
 | [Our Framework for Developing Safe and Trustworthy Agents](https://www.anthropic.com/news/our-framework-for-developing-safe-and-trustworthy-agents) | 负责任智能体部署的治理框架。 |
+| [When AI Builds Itself](https://www.anthropic.com/institute/recursive-self-improvement) | Anthropic Institute 谈递归自我改进：AI 正在加速 AI 自身的开发，方向设定与研究品味是仍属于人类的两道门槛，以及相应的治理情景。 |
 | [Scaling Managed Agents: Decoupling the Brain from the Hands](https://www.anthropic.com/engineering/managed-agents) | 分离推理、执行和会话的托管服务架构。 |
+| [An Update on Recent Claude Code Quality Reports](https://www.anthropic.com/engineering/april-23-postmortem) | 复盘导致质量观感下降的三个 bug：reasoning-effort 默认值、一处缓存优化 bug，以及一次系统提示改动。 |
 | [Introducing Claude Opus 4.8](https://www.anthropic.com/news/claude-opus-4-8) | 2026 年 5 月模型更新：判断力与诚实度提升（代码缺陷漏判约减少 4 倍）、可自主运行更久；在 research preview 中引入 dynamic workflows。 |
 
 #### 产品文档
