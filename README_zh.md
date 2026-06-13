@@ -377,7 +377,7 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [An Update on Recent Claude Code Quality Reports](https://www.anthropic.com/engineering/april-23-postmortem) | 复盘导致质量观感下降的三个 bug：reasoning-effort 默认值、一处缓存优化 bug，以及一次系统提示改动。 |
 | [Introducing Claude Opus 4.8](https://www.anthropic.com/news/claude-opus-4-8) | 2026 年 5 月模型更新：判断力与诚实度提升（代码缺陷漏判约减少 4 倍）、可自主运行更久；在 research preview 中引入 dynamic workflows。 |
 | [Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5) | 2026 年 6 月推出位于 Opus 之上的 Mythos 级别；Fable 5 为面向通用场景的安全配置（高风险请求回退到 Opus 4.8），在软件工程与智能体编码上达到 SOTA。2026 年 6 月 12 日起全球暂停访问（见下一条）。 |
-| [Statement on Suspending Access to Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) | 2026 年 6 月 12 日：美国出口管制指令禁止外国公民访问；因无法精细区分用户，Anthropic 对所有用户停用了这两个模型。所给理由是一种"读取代码库并修复其漏洞"的狭义越狱，Anthropic 对以此召回模型表示异议。 |
+| [Statement on Suspending Access to Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) | Anthropic 关于暂停 Fable 5 与 Mythos 5 的声明。美国出口管制指令（2026 年 6 月 12 日）原本只限制外国公民访问，但 Anthropic 直接对全球所有用户停用了这两个模型，距上线只有几天。这是监管把一个已上线的前沿模型直接下架的罕见案例，也是 agent 系统在部署中要面对的合规与安全压力的一个具体例子。 |
 
 #### 产品文档
 
