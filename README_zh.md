@@ -369,14 +369,14 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [Harness Design for Long-Running Application Development](https://anthropic.com/engineering/harness-design-long-running-apps) | 自主全栈开发的 harness 架构；多智能体模式。 |
 | [Claude Code Auto Mode: A Safer Way to Skip Permissions](https://www.anthropic.com/engineering/claude-code-auto-mode) | ML 分类器批准自动化；93% 批准率发现的来源。 |
 | [Beyond Permission Prompts: Making Claude Code More Secure and Autonomous](https://www.anthropic.com/engineering/claude-code-sandboxing) | 基于沙箱的安全；权限提示减少 84%。 |
-| [How We Contain Claude Across Products](https://www.anthropic.com/engineering/how-we-contain-claude) | 跨 claude.ai、Claude Code 与 Cowork 的隔离防护（2026 年 5 月）；Claude Code 的人类在环沙箱、审批疲劳，以及如何控制爆炸半径。 |
+| [How We Contain Claude Across Products](https://www.anthropic.com/engineering/how-we-contain-claude) | 讲述 Anthropic 如何在 claude.ai、Claude Code 与 Cowork 三款产品中约束 Claude 的行为（2026 年 5 月）；内容涵盖 Claude Code 的人在回路沙箱、审批疲劳问题，以及如何在出问题时把影响范围控制到最小。 |
 | [Measuring AI Agent Autonomy in Practice](https://anthropic.com/research/measuring-agent-autonomy) | 长期使用数据：随着用户熟练度提升，自动批准率从约 20% 上升到 40% 以上。 |
 | [Our Framework for Developing Safe and Trustworthy Agents](https://www.anthropic.com/news/our-framework-for-developing-safe-and-trustworthy-agents) | 负责任智能体部署的治理框架。 |
-| [When AI Builds Itself](https://www.anthropic.com/institute/recursive-self-improvement) | Anthropic Institute 谈递归自我改进：AI 正在加速 AI 自身的开发，方向设定与研究品味是仍属于人类的两道门槛，以及相应的治理情景。 |
+| [When AI Builds Itself](https://www.anthropic.com/institute/recursive-self-improvement) | Anthropic Institute 关于"递归自我改进"的讨论：AI 正在加速 AI 自身的研发；目前仍主要由人类把握的是研究方向的选择和对结果好坏的判断，文中还探讨了相应的治理设想。 |
 | [Scaling Managed Agents: Decoupling the Brain from the Hands](https://www.anthropic.com/engineering/managed-agents) | 分离推理、执行和会话的托管服务架构。 |
 | [An Update on Recent Claude Code Quality Reports](https://www.anthropic.com/engineering/april-23-postmortem) | 复盘导致质量观感下降的三个 bug：reasoning-effort 默认值、一处缓存优化 bug，以及一次系统提示改动。 |
 | [Introducing Claude Opus 4.8](https://www.anthropic.com/news/claude-opus-4-8) | 2026 年 5 月模型更新：判断力与诚实度提升（代码缺陷漏判约减少 4 倍）、可自主运行更久；在 research preview 中引入 dynamic workflows。 |
-| [Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5) | 2026 年 6 月推出位于 Opus 之上的 Mythos 级别；Fable 5 为面向通用场景的安全配置（高风险请求回退到 Opus 4.8），在软件工程与智能体编码上达到 SOTA。2026 年 6 月 12 日起全球暂停访问（见下一条）。 |
+| [Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5) | 2026 年 6 月发布的 Mythos 级模型，能力位于 Opus 之上；其中 Fable 5 是面向通用用户的安全版本（遇到高风险请求会回退到 Opus 4.8），在软件工程与智能体编码等任务上达到当前最强水平。自 2026 年 6 月 12 日起，两者已在全球暂停访问（见下一条）。 |
 | [Statement on Suspending Access to Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) | Anthropic 关于暂停 Fable 5 与 Mythos 5 的声明。美国出口管制指令（2026 年 6 月 12 日）原本只限制外国公民访问，但 Anthropic 直接对全球所有用户停用了这两个模型，距上线只有几天。这是监管把一个已上线的前沿模型直接下架的罕见案例，也是 agent 系统在部署中要面对的合规与安全压力的一个具体例子。 |
 
 #### 产品文档
@@ -458,13 +458,13 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 
 ### 跨厂商代码智能体工程
 
-其他正在构建代码智能体的厂商的官方工程博客——有助于理解同样的设计问题在 Claude Code 之外如何被回答。
+其他正在构建代码智能体的厂商的官方工程博客——有助于了解 Claude Code 之外的厂商如何回答同样的设计问题。
 
 | 资源 | 厂商 | 亮点 |
 |:---------|:-------|:---------------|
-| [Harness Engineering: Leveraging Codex in an Agent-First World](https://openai.com/index/harness-engineering/) | OpenAI | 把"harness"定义为让智能体可靠的约束、反馈回路与文档；据称一个约百万行的 beta 几乎没有手写代码。 |
+| [Harness Engineering: Leveraging Codex in an Agent-First World](https://openai.com/index/harness-engineering/) | OpenAI | 把 harness 定义为让智能体产出可靠、可维护结果所需的约束、反馈回路、文档结构与工具；文中提到，他们一款约百万行代码的 beta 版产品几乎没有一行是人工编写的。 |
 | [Best Practices for Coding with Agents](https://cursor.com/blog/agent-best-practices) | Cursor | 将智能体 harness 拆为三部分——Instructions、Tools、Model——并按所用模型分别编排。 |
-| [Build with Google Antigravity](https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/) | Google | 以智能体为先的平台：用 Manager 界面异步编排多个智能体，并以 Artifacts（计划、截图、录屏）替代原始日志作为验证机制。 |
+| [Build with Google Antigravity](https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/) | Google | 以智能体为先的平台：通过 Manager 界面异步编排多个智能体，并用 Artifacts（计划、截图、录屏）代替原始日志来做验证。 |
 | [Codex Security: Now in Research Preview](https://openai.com/index/codex-security-now-in-research-preview/) | OpenAI | 应用安全智能体：先为项目构建专属威胁模型，再在沙箱验证环境中查找并压力测试漏洞。 |
 
 ### 相关学术论文
@@ -501,7 +501,7 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 |:-----------|:-------|:------|
 | [**openclaw/openclaw**](https://github.com/openclaw/openclaw) [![Star](https://img.shields.io/github/stars/openclaw/openclaw.svg?style=social&label=Star)](https://github.com/openclaw/openclaw) | 2026 年 1 月 | 跨消息平台的本地优先个人 AI 助手。（[第 10 节分析](#跨系统对比claude-code-vs-openclaw-vs-hermes-agent)） |
 | [**NousResearch/hermes-agent**](https://github.com/nousresearch/hermes-agent) [![Star](https://img.shields.io/github/stars/nousresearch/hermes-agent.svg?style=social&label=Star)](https://github.com/nousresearch/hermes-agent) | 2026 年 2 月 | 具有跨会话记忆的自我改进个人智能体。（[第 10 节分析](#跨系统对比claude-code-vs-openclaw-vs-hermes-agent)） |
-| [**opensquilla/opensquilla**](https://github.com/opensquilla/opensquilla) [![Star](https://img.shields.io/github/stars/opensquilla/opensquilla.svg?style=social&label=Star)](https://github.com/opensquilla/opensquilla) | 2026 年 6 月 | 主打 token 效率的微内核个人智能体，覆盖 CLI、Web UI 与聊天渠道；用 ML 分类器在四档成本的模型间路由，本地 Markdown+SQLite 记忆（MEMORY.md 加按日期的笔记，支持关键词与向量召回），Bubblewrap/Seatbelt 沙箱。 |
+| [**opensquilla/opensquilla**](https://github.com/opensquilla/opensquilla) [![Star](https://img.shields.io/github/stars/opensquilla/opensquilla.svg?style=social&label=Star)](https://github.com/opensquilla/opensquilla) | 2026 年 6 月 | 主打 token 效率的微内核个人智能体，覆盖 CLI、Web UI 与聊天渠道；它用 ML 分类器按成本给模型分档并据此路由，配有本地 Markdown+SQLite 记忆（一个 MEMORY.md 加上按日期记录的笔记，支持关键词与向量召回），并提供 Bubblewrap/Seatbelt 沙箱。 |
 | [**sst/opencode**](https://github.com/sst/opencode) [![Star](https://img.shields.io/github/stars/sst/opencode.svg?style=social&label=Star)](https://github.com/sst/opencode) | 2025 年 6 月 | 与模型厂商无关的终端编码智能体，集成 ACP。 |
 | [**Aider-AI/aider**](https://github.com/Aider-AI/aider) [![Star](https://img.shields.io/github/stars/Aider-AI/aider.svg?style=social&label=Star)](https://github.com/Aider-AI/aider) | 2023 年 | 在终端中与 LLM 结对编程，支持主流模型。 |
 | [**continuedev/continue**](https://github.com/continuedev/continue) [![Star](https://img.shields.io/github/stars/continuedev/continue.svg?style=social&label=Star)](https://github.com/continuedev/continue) | 2023 年 | IDE 中受版本控制的 AI 检查，配套开源 Continue CLI。 |
@@ -543,7 +543,7 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 |:-----------|:-------|:------|
 | [**addyosmani/agent-skills**](https://github.com/addyosmani/agent-skills) [![Star](https://img.shields.io/github/stars/addyosmani/agent-skills.svg?style=social&label=Star)](https://github.com/addyosmani/agent-skills) | 2025 年 | 22 个生命周期 skill 配套斜杠命令（`/spec`、`/plan`、`/build`、`/test`、`/review`、`/ship`）。 |
 | [**obra/superpowers**](https://github.com/obra/superpowers) [![Star](https://img.shields.io/github/stars/obra/superpowers.svg?style=social&label=Star)](https://github.com/obra/superpowers) | 2025 年 | 跨 harness（Claude Code、OpenCode、Codex）的强制工作流 skill 框架。 |
-| [**mattpocock/skills**](https://github.com/mattpocock/skills) [![Star](https://img.shields.io/github/stars/mattpocock/skills.svg?style=social&label=Star)](https://github.com/mattpocock/skills) | 2026 年 | 作者日常使用的 `.claude/skills` skill 集，面向真实工程——可组合的 TDD、diagnose、to-issues/to-prd；与模型无关，面向 Claude Code、Codex 等编码智能体。 |
+| [**mattpocock/skills**](https://github.com/mattpocock/skills) [![Star](https://img.shields.io/github/stars/mattpocock/skills.svg?style=social&label=Star)](https://github.com/mattpocock/skills) | 2026 年 | 作者本人日常使用的 `.claude/skills` 技能集，面向真实工程——包含可组合的 TDD、diagnose、to-issues/to-prd 等技能；与具体模型无关，适用于 Claude Code、Codex 等编码智能体。 |
 | [**multica-ai/andrej-karpathy-skills**](https://github.com/multica-ai/andrej-karpathy-skills) [![Star](https://img.shields.io/github/stars/multica-ai/andrej-karpathy-skills.svg?style=social&label=Star)](https://github.com/multica-ai/andrej-karpathy-skills) | 2026 年 | 单个 CLAUDE.md，凝练 Andrej Karpathy 关于 LLM 编码的四条规则（先想后写、简洁优先、外科手术式改动、目标驱动执行）；可作为插件安装或按项目添加。 |
 | [**lsdefine/GenericAgent**](https://github.com/lsdefine/GenericAgent) [![Star](https://img.shields.io/github/stars/lsdefine/GenericAgent.svg?style=social&label=Star)](https://github.com/lsdefine/GenericAgent) | 2025 年 | 极简自演化自主智能体框架——9 个原子工具加约 100 行 ReAct 循环。 |
 
