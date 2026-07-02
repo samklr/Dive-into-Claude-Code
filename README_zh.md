@@ -440,6 +440,7 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [**walkinglabs/learn-harness-engineering**](https://github.com/walkinglabs/learn-harness-engineering) [![Star](https://img.shields.io/github/stars/walkinglabs/learn-harness-engineering.svg?style=social&label=Star)](https://github.com/walkinglabs/learn-harness-engineering) | 英文项目制课程——PDF 课本、大纲与 capstone 项目，围绕指令、状态管理、验证机制、作用域约束和会话生命周期这五个 harness 子系统展开。 |
 | [**china-qijizhifeng/agentic-harness-engineering**](https://github.com/china-qijizhifeng/agentic-harness-engineering) [![Star](https://img.shields.io/github/stars/china-qijizhifeng/agentic-harness-engineering.svg?style=social&label=Star)](https://github.com/china-qijizhifeng/agentic-harness-engineering) | 自动演化 coding agent harness 的可观测系统——一个 meta-agent 读取执行 trace，自动改写 system prompt、工具、中间件、skills、子 agent 和记忆。 |
 | [**ZhangHanDong/harness-engineering-from-cc-to-ai-coding**](https://github.com/ZhangHanDong/harness-engineering-from-cc-to-ai-coding) [![Star](https://img.shields.io/github/stars/ZhangHanDong/harness-engineering-from-cc-to-ai-coding.svg?style=social&label=Star)](https://github.com/ZhangHanDong/harness-engineering-from-cc-to-ai-coding) | 《马书》——把 Claude Code v2.1.88 作为 Harness Engineering 案例研究的中文 mdBook；涵盖架构、prompt engineering、上下文管理、prompt cache、安全和给构建者的经验。 |
+| [**alchaincyf/loop-engineering-orange-book**](https://github.com/alchaincyf/loop-engineering-orange-book) [![Star](https://img.shields.io/github/stars/alchaincyf/loop-engineering-orange-book.svg?style=social&label=Star)](https://github.com/alchaincyf/loop-engineering-orange-book) | 花叔写的 loop engineering《橙皮书》，中英双语，讲得通俗。它把循环放在 harness 之上的一层，讲清楚一个循环要做什么、需要哪些部件，并致谢了 Steinberger、Osmani 和 Anthropic 的 Claude Code 团队。 |
 
 ### 博客文章与技术文章
 
@@ -456,6 +457,8 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [Zain Hasan — "Inside Claude Code: An Architecture Deep Dive"](https://zainhas.github.io/blog/2026/inside-claude-code-architecture/) | 分层架构、5 种入口模式、多智能体演练。 |
 | [Addy Osmani — "Agent Harness Engineering"](https://addyosmani.com/blog/agent-harness-engineering/) | 把 harness engineering 视为一门工程学科，给出命名化的原语（文件系统/git 状态、沙箱、AGENTS.md 记忆、压缩、规划循环、hooks）；将 Claude Code 作为最成熟的范例。 |
 | [Addy Osmani — "Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) | 给 "loop engineering" 命名的那篇：你不再亲自给智能体写 prompt，而是搭一个自动去 prompt 它的循环。它的几个部分（自动化任务、worktree、skills、连接器、子智能体，以及一个记录进度的文件）就是本文分析的 harness 层。 |
+| [Armin Ronacher — "The Coming Loop"](https://lucumr.pocoo.org/2026/6/23/the-coming-loop/) | 把智能体循环（一次运行里的工具调用）和 harness 循环（不停地把智能体重新叫起来再跑一遍的系统）分开来看。作者态度偏保留：循环在移植代码、调优性能、排查安全问题这些活上好用，但它写出来的代码往往偏防御、更难维护，最后还是得人去读、去决定留下哪些。 |
+| [LangChain — "The Art of Loop Engineering"](https://www.langchain.com/blog/the-art-of-loop-engineering) | 讲了围绕智能体搭起来的四层循环：智能体自己的循环、给输出打分再重试的验证循环、由外部事件触发去启动智能体的事件循环，以及读生产 trace 来反过来改进 harness 的 hill-climbing 循环。核心观点是：大部分价值来自这些循环，而不是模型本身。 |
 | [Andrej Karpathy — "Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) | 主张"智能体工程"：人类负责编排与验证，而不再亲自写代码。"LLM 与强化学习自动化的是你能验证的东西"；"你可以外包思考，但无法外包理解"。 |
 
 ### 跨厂商代码智能体工程
@@ -467,6 +470,7 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [Harness Engineering: Leveraging Codex in an Agent-First World](https://openai.com/index/harness-engineering/) | OpenAI | 把 harness 定义为让智能体产出可靠、可维护结果所需的约束、反馈回路、文档结构与工具；文中提到，他们一款约百万行代码的 beta 版产品几乎没有一行是人工编写的。 |
 | [Best Practices for Coding with Agents](https://cursor.com/blog/agent-best-practices) | Cursor | 将智能体 harness 拆为三部分——Instructions、Tools、Model——并按所用模型分别编排。 |
 | [Build with Google Antigravity](https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/) | Google | 以智能体为先的平台：通过 Manager 界面异步编排多个智能体，并用 Artifacts（计划、截图、录屏）代替原始日志来做验证。 |
+| [Microsoft Agent Framework at BUILD 2026: Agent Harness, Hosted Agents, CodeAct](https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-at-build-2026-announce/) | Microsoft | 内置了一个 "agent harness"：自动压缩上下文、文件式记忆、plan/execute 两种模式、skill 发现、并行子智能体，还有一个沙箱 shell。另外加了 CodeAct——让模型把多次工具调用写成一段 Python 程序，在每次调用单独开的 Hyperlight 微型虚拟机里跑。 |
 | [Codex Security: Now in Research Preview](https://openai.com/index/codex-security-now-in-research-preview/) | OpenAI | 应用安全智能体：先为项目构建专属威胁模型，再在沙箱验证环境中查找并压力测试漏洞。 |
 
 ### 相关学术论文
