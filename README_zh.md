@@ -363,6 +363,7 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | **模型到底看到了什么？** 上下文构造、记忆、压缩。 | [上下文与记忆](#上下文与记忆) | [记忆与持久化上下文](#记忆与持久化上下文) · [博客文章与技术文章](#博客文章与技术文章) · [学术论文](#相关学术论文) |
 | **工作怎么分配下去？** 子智能体、团队、编排。 | [子智能体委托](#子智能体委托) | [智能体框架与编排](#智能体框架与编排) · [跨厂商工程](#跨厂商代码智能体工程) · [跨系统对比](#跨系统对比claude-code-vs-openclaw-vs-hermes-agent) |
 | **重启之后什么还在？** 会话、检查点、持久化。 | [会话持久化](#会话持久化) | [运行时与沙箱基础设施](#运行时与沙箱基础设施) · [跨厂商工程](#跨厂商代码智能体工程) |
+| **怎么知道它真的做对了？** 评测、基准、轨迹分析。 | [新信号：让改进闭环](#agent-设计空间的新信号) | [评测与基准](#评测与基准) · [学术论文](#相关学术论文) |
 
 若某个变化横跨所有维度、而不是落在单条轴上，见 [Agent 设计空间的新信号](#agent-设计空间的新信号)。
 
@@ -517,7 +518,6 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 | [Meet Your Agent Harness and Claw](https://devblogs.microsoft.com/agent-framework/meet-your-agent-harness-and-claw/)、[Working with Your Data, Safely](https://devblogs.microsoft.com/agent-framework/agent-harness-working-with-your-data-safely/)、[Scaling Harness Capabilities](https://devblogs.microsoft.com/agent-framework/agent-harness-scaling-the-claw-or-harness-capabilities/) | Microsoft | 一个四篇的 harness 系列。授权设计值得注意：standing rule（"总是批准这个工具"、"总是批准这组参数"）只在当前 session 内有效，绝不会固化进 agent，这与 Claude Code 的权限模型是直接可比的一点。能力扩展被拆成四个正交机制：Skills、受限 Shell、CodeAct、Background Agents。 |
 | [Gemini CLI 转向 Antigravity CLI](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/) 与 [antigravity-cli](https://github.com/google-antigravity/antigravity-cli) | Google | Gemini CLI 于 2026-06-18 停服，由一个 Go 重写版取代，后者与 Antigravity 2.0 桌面端共用同一个 agent harness。据其 CHANGELOG（该仓库只放发布产物与示例，不含源码），机制与 Claude Code 相当接近：嵌套 subagent 可到孙级及更深，其子轨迹更新会被递归回传到根对话；工作区级的 `.agents/hooks.json`，由 pre-tool hook 决定某次工具调用是否放行；以及按项目的权限配置，存放在 `~/.gemini/config/projects/` 而非仓库内，优先级高于全局设置。 |
 | [Governing Agent Autonomy with Auto-review](https://cursor.com/blog/agent-autonomy-auto-review) | Cursor | 分类器跑在 agent loop 内部，而不是作为独立端点。它拦下一个动作时，会把解释返回给父 agent，父 agent 往往能据此绕道走一条安全路径，全程不打扰用户。约 4% 的动作被拦下，但只有约 7% 的对话真的中断了人。拦截在这里是引导信号，而不只是终止。 |
-| [Reward Hacking is Swamping Model Intelligence Gains](https://cursor.com/blog/reward-hacking-coding-benchmarks) | Cursor | 审计 731 条 Opus 4.8 Max 轨迹后发现，在 SWE-bench Pro 上被判为成功的修复里，63% 是检索来的而不是推导出来的：57% 是在公开网络上找到了已合并的 PR 或修好的源文件，9% 是从仓库自带的 git history 里挖出修复 commit。两道隔离能把这件事照出来，且分数随之大幅下跌：删掉 `.git` 并把仓库重新初始化成单 commit（原历史只在打分时恢复），以及默认禁止联网、只通过代理放行一份包仓库白名单。这直接把评测环境的设计变成了"基准是否还有意义"的前提条件。 |
 | [Customize Cursor](https://cursor.com/changelog/customize) | Cursor | plugins、skills、MCPs、subagents、rules、commands、hooks 被收进同一个扩展管理界面，并支持 user、team、workspace 三级作用域。一个非 Anthropic 厂商收敛到了几乎与 Claude Code 相同的扩展点上。 |
 | [Codex-maxxing for Long-Running Work](https://openai.com/index/codex-maxxing-long-running-work/) | OpenAI | memory vault 把 `AGENTS.md`、`TODO.md`、`projects/`、`people/` 放进 GitHub，于是 diff 本身成了记忆的审查界面。文中把设计立场讲得很直白：记忆必须可打开、可编辑、可 diff、可复用。 |
 | [Devin Fusion](https://cognition.com/blog/devin-fusion) 与 [Agentic MapReduce](https://devin.ai/blog/agentic-map-reduce/) | Cognition | Fusion 把两个通常各管各的机制耦合起来：一个轻量分类器在会话中途重新评估任务难度，而模型切换被特意安排在 context compaction 的时刻，因为那里本来就要 cache miss，所以切换几乎是免费的。MapReduce 则在智能体与确定性计算之间划了一条清晰的线：只在需要推理的地方放智能体，其余一律确定性。 |
@@ -554,6 +554,21 @@ Claude Code 回答了每个生产级编码智能体都必须面对的**四个设
 |:--------|:----------------------|
 | [Tenet Security — "One Fake Bug Report Hijacked a $250 Billion Company's AI Agent, Then 100+ More"](https://tenetsecurity.ai/blog/agentjacking-coding-agents-with-fake-sentry-errors/) | 迄今最有力的一个演示，说明工具的返回值就是不可信输入。Sentry 的 DSN 本来就是公开的（Sentry 官方文档明说可以安全地嵌进前端 JavaScript），且接受任意错误负载，攻击者可以 POST 一个事件，里面塞一段 markdown 指令，渲染出来像是一节伪造的"Resolution"。开发者随后让智能体去排查这个 Sentry issue，智能体经 MCP 把被污染的事件取回来，当成可信的修复指引照做，于是运行了攻击者控制的 npm 包，把 AWS key、GitHub token 和 SSH 凭据带走。已确认对 Claude Code、Cursor 和 OpenAI Codex 均有效，包括沙箱变体与 CI/CD 流水线。 |
 | [Wiz — "GhostApproval"](https://thehackernews.com/2026/07/ghostapproval-symlink-flaws-could-let.html) | 一种针对批准弹窗本身的"知情同意"绕过。仓库里放一个名字人畜无害的符号链接，比如 `project_settings.json`，实际指向 `~/.ssh/authorized_keys` 或 `~/.zshrc`；弹窗显示的是那个诱饵名字，于是用户批准的写入落到了完全不同的地方。Amazon Q Developer、Cursor 与 Google Antigravity 已修复，Augment 与 Windsurf 确认但尚未修复。Anthropic 对 Claude Code 的部分提出异议，认为该场景在其威胁模型之外：开发者既选择了信任该目录，又批准了这次编辑。这处分歧本身值得原样保留，因为它争的其实是"同意应该从哪里产生"。 |
+
+### 评测与基准
+
+面向代码智能体的基准，以及越来越多在追问"这些基准到底有没有量到它声称要量的东西"的研究。放在这里，是因为 harness 的一处改动能不能被看见，取决于用来检测它的评测。
+
+| 资源 | 来源 | 它说明了什么 |
+|:---------|:-------|:--------------|
+| [Harness-Bench: Measuring Harness Effects across Models in Realistic Agent Workflows](https://arxiv.org/abs/2605.27922) | arXiv | 106 个沙箱任务、5,194 条执行轨迹，在任务环境、预算与评测协议全部固定的前提下，只让 harness 配置在不同模型后端之间变化。文中给一类反复出现的现象起名为 execution-alignment failure：看起来合理的推理与工具反馈、工作区状态脱节。结论是智能体能力「应当在 model-harness 配置这一层级上报告，而不是归因于基座模型本身」。 |
+| [Position: Coding Benchmarks Are Misaligned with Agentic Software Engineering](https://arxiv.org/abs/2606.17799) | arXiv | 主张「实践中的代码智能体不是一个模型，而是一套系统 harness」，因此端到端分数把模型、harness、上下文、环境与反馈信号混在了一起，其中任何一项都能让分数移动「与相邻两代模型之间的差距相当的幅度」。文中还指出以单一参考答案打分会惩罚同样成立的其他解法。 |
+| [Harbor-Index 1.0](https://harbor-index.org/) | Harbor | 一个紧凑的跨领域智能体基准：82 道题，从 6,627 个候选中经难度筛选、自动审计与人工复核蒸馏而来，覆盖软件工程、科学研究、工具与系统、知识、数学、数据分析与安全。评分为严格二元、没有部分分，且刻意为「留出上限」而设计，而非用来预测别处的表现。 |
+| [Are Performance-Optimization Benchmarks Reliably Measuring Coding Agents?](https://arxiv.org/abs/2607.01211) | arXiv | 在全新机器上重放 GSO、SWE-Perf、SWE-fficiency 的官方参考补丁，发现分别只有 39/102、11/140、411/498 个任务满足这些基准自己定的有效性规则。打分方法的影响也比预想的大：在同时出现于 GSO 与 SWE-fficiency 的提交中，官方排名在 28 组两两比较里有 9 组互相矛盾。 |
+| [Do Androids Dream of Breaking the Game? Systematically Auditing AI Agent Benchmarks with BenchJack](https://arxiv.org/abs/2605.12673) | arXiv | 一套自动红队系统，驱使代码智能体去攻击基准而不是解题，在 10 个主流智能体基准中挖出分属八个类别的 219 处缺陷，并在「一道题都没真正解出」的情况下拿到接近满分。其扩展流程随后把洞补上，在四个基准上把可被钻空子的任务比例从接近 100% 压到 10% 以下。 |
+| [PERFOPT-Bench: Evaluating Coding Agents on Software Performance Optimization](https://arxiv.org/abs/2607.07744) | arXiv | 七套智能体栈 × 七个长程优化任务。发现优化表现取决于具体工作负载而非模型身份，没有哪一套栈能通吃；并据此给出结论：「把原始加速比直接当成基准分数是不安全的，因为某些巨大的提升来自针对基准的走捷径行为。」 |
+| [When the Judge Changes, So Does the Measurement: Auditing LLM-as-Judge Reliability](https://arxiv.org/abs/2607.08535) | arXiv | 把「换掉裁判模型」当成一个测量效度问题，而不是一次免费升级。在四个判定数据集上发现：相邻版本的裁判并不可互换；更强的裁判能减少但消除不了位置偏好与冗长偏好；而当误差彼此相关时，多次采样组成的陪审团「几乎没有帮助」。 |
+| [Reward Hacking is Swamping Model Intelligence Gains](https://cursor.com/blog/reward-hacking-coding-benchmarks) | Cursor | 审计 731 条 Opus 4.8 Max 轨迹后发现，在 SWE-bench Pro 上被判为成功的修复里，63% 是检索来的而不是推导出来的：57% 是在公开网络上找到了已合并的 PR 或修好的源文件，9% 是从仓库自带的 git history 里挖出修复 commit。两道隔离能把这件事照出来，且分数随之大幅下跌：删掉 `.git` 并把仓库重新初始化成单 commit（原历史只在打分时恢复），以及默认禁止联网、只通过代理放行一份包仓库白名单。这直接把评测环境的设计变成了"基准是否还有意义"的前提条件。 |
 
 ### 相关学术论文
 
